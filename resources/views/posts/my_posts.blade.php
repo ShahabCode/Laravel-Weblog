@@ -54,11 +54,11 @@
                             <td class="px-6 py-4">{{ $post->published_at ?? '---' }}</td>
                             <td class="px-6 py-4">{{ $post->views }}</td>
                             <td class="px-6 py-4 flex gap-2">
-                                <x-iconed-linked-button href="{{ route('posts.edit', $post->id) }}" icon="fa-edit" variant="outline">
+                                <x-iconed-linked-button href="{{ route('posts.edit', $post) }}" icon="fa-edit" variant="outline">
                                     ویرایش
                                 </x-iconed-linked-button>
 
-                                <form method="POST" action="{{ route('posts.destroy', $post->id) }}"
+                                <form method="POST" action="{{ route('posts.destroy', $post) }}"
                                       onsubmit="return confirm('آیا مطمئن هستید؟')">
                                     @csrf
                                     @method('DELETE')
