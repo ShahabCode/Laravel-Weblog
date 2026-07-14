@@ -43,7 +43,7 @@ class PostController extends Controller
             'is_published' => false,
         ]);
 
-        return redirect()->route('posts.my_posts')->with('success', 'مقاله با موفقیت ثبت شد');
+        return redirect()->route('posts.my_posts')->with('success', 'پست با موفقیت ثبت شد');
     }
 
     public function show(Post $post)
@@ -107,10 +107,10 @@ class PostController extends Controller
         $post->save();
 
         if ($user->is_admin) {
-            return redirect()->route('posts.show', $post)->with('success', 'مقاله با موفقیت ویرایش شد');
+            return redirect()->route('posts.show', $post)->with('success', 'پست با موفقیت ویرایش شد');
         }
 
-        return redirect()->route('posts.my_posts')->with('warning', 'مقاله ویرایش شد و نیاز به تایید ادمین دارد');
+        return redirect()->route('posts.my_posts')->with('warning', 'پست ویرایش شد و نیاز به تایید ادمین دارد');
     }
 
     public function destroy(Post $post)
@@ -126,7 +126,7 @@ class PostController extends Controller
         }
 
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'مقاله با موفقیت حذف شد');
+        return redirect()->route('posts.index')->with('success', 'پست با موفقیت حذف شد');
     }
 
     public function myPosts()
