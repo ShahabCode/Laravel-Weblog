@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -22,12 +21,12 @@
                                 >
                             @endif
 
-                            <h3 class="text-2xl font-bold mb-2">
-                                <a
-                                    href="{{ route('posts.show', $post) }}"
-                                    class="hover:text-blue-600 transition"
+                            <h3 class="text-2xl font-bold mb-2 text-gray-900">
+
+                                <a href="{{ route('posts.show', $post) }}"
+                                class="hover:text-blue-600 transition"
                                 >
-                                    {{ $post->title }}
+                                {{ $post->title }}
                                 </a>
                             </h3>
 
@@ -67,4 +66,3 @@
         </div>
     </div>
 </x-app-layout>
-

@@ -16,7 +16,7 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">عنوان</label>
                         <input type="text" name="title" value="{{ old('title') }}"
-                               class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                               class="w-full border rounded-md px-3 py-2 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         @error('title') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
@@ -24,7 +24,7 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">اسلاگ</label>
                         <input type="text" name="slug" value="{{ old('slug') }}"
-                               class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                               class="w-full border rounded-md px-3 py-2 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         @error('slug') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
@@ -32,7 +32,7 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">محتوا</label>
                         <textarea name="content" rows="6"
-                                  class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">{{ old('content') }}</textarea>
+                                  class="w-full border rounded-md px-3 py-2 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500">{{ old('content') }}</textarea>
                         @error('content') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
@@ -40,7 +40,7 @@
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">تصویر</label>
                         <input type="file" name="image" accept="image/*"
-                               class="w-full border rounded-md px-3 py-2">
+                               class="w-full border rounded-md px-3 py-2 bg-white text-gray-900">
                         @error('image') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
@@ -48,7 +48,7 @@
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">تاریخ انتشار</label>
                         <input type="datetime-local" name="published_at" value="{{ old('published_at') }}"
-                               class="w-full border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                               class="w-full border rounded-md px-3 py-2 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
                         @error('published_at') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
