@@ -4,8 +4,19 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Post;
+
 Route::get('/', function () {
-    return view('welcome');
+    $posts = Post::published()
+        ->with('user')
+        ->latest('published_at')
+        ->take(7)
+        ->get();
+
+    $featured = $posts->first();
+    $others   = $posts->slice(1);
+
+    return view('welcome', compact('featured', 'others'));
 });
 
 Route::get('/dashboard', function () {
