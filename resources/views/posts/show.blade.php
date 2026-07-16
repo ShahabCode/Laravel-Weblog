@@ -24,6 +24,13 @@
                     {{ $post->title }}
                 </h1>
 
+                @if($post->category)
+                    <a href="{{ route('categories.show', $post->category) }}"
+                       class="inline-block text-sm font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mb-4 hover:bg-indigo-100 transition">
+                        {{ $post->category->name }}
+                    </a>
+                @endif
+
                 {{-- اطلاعات مقاله --}}
                 <div class="flex flex-wrap gap-4 text-sm text-gray-500 mb-8 border-b pb-4">
 

@@ -28,6 +28,21 @@
                         @error('slug') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
                     </div>
 
+                    {{-- دسته‌بندی --}}
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">دسته‌بندی</label>
+                        <select name="category_id"
+                                class="w-full border rounded-md px-3 py-2 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="">بدون دسته‌بندی</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id') <p class="text-red-500 text-sm mt-1">{{ $message }}</p> @enderror
+                    </div>
+
                     {{-- محتوا --}}
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">محتوا</label>

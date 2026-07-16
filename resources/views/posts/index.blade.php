@@ -8,6 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+            @if($searchTerm)
+                <div class="mb-6 text-gray-600">
+                    نتایج جستجو برای: <span class="font-semibold text-gray-900">«{{ $searchTerm }}»</span>
+                    <a href="{{ route('posts.index') }}" class="text-sm text-indigo-600 hover:underline mr-2">(پاک کردن)</a>
+                </div>
+            @endif
+
             @if($posts->count())
                 <div class="grid gap-6">
                     @foreach($posts as $post)
@@ -22,6 +29,13 @@
                             @endif
 
                             <h3 class="text-2xl font-bold mb-2 text-gray-900">
+
+                                @if($post->category)
+                                    <a href="{{ route('categories.show', $post->category) }}"
+                                       class="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full mb-3 hover:bg-indigo-100 transition">
+                                        {{ $post->category->name }}
+                                    </a>
+                                @endif
 
                                 <a href="{{ route('posts.show', $post) }}"
                                 class="hover:text-blue-600 transition"
