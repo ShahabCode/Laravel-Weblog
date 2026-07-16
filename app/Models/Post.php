@@ -17,6 +17,7 @@ class Post extends Model
         'user_id',
         'views',
         'is_published',
+        'category_id',
     ];
     protected $casts = [
         'views' => 'integer',
@@ -53,5 +54,24 @@ class Post extends Model
     public function getRouteKeyName() // به این روش میگن route model binding
     {
         return 'slug';
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function scopeInCategory($query, $categorySlug)
+    {
+        return $query->whereHas('category', function ($q) use ($categorySlug) {
+            $q->where('slug', $categorySlug);
+        });
+    }
+
+    public function scopeSearch($query, $term)
+    {
+        return $query->where(function ($q) use ($term) {
+            $q->where('title', 'like', "%{$term}%")
+                ->orWhere('content', 'like', "%{$term}%");
+        });
     }
 }
