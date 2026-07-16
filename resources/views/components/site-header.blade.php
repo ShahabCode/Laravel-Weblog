@@ -14,8 +14,23 @@
                 <a href="{{ route('posts.index') }}" class="hover:text-indigo-600 transition">همه پست ها</a>
                 @auth
                     <a href="{{ route('posts.my_posts') }}" class="hover:text-indigo-600 transition">پست های من</a>
+                    <a href="{{ route('dashboard') }}" class="hover:text-indigo-600 transition">داشبورد</a>
                 @endauth
             </nav>
+
+            {{-- جستجو (دسکتاپ) --}}
+            <form action="{{ route('posts.index') }}" method="GET" class="hidden md:flex items-center relative">
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ request('q') }}"
+                    placeholder="جستجو در پست‌ها..."
+                    class="w-56 bg-gray-100 text-gray-800 text-sm rounded-full pr-4 pl-9 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                <button type="submit" class="absolute left-3 text-gray-400 hover:text-indigo-600">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+            </form>
 
             {{-- دکمه‌های سمت راست --}}
             <div class="hidden md:flex items-center gap-3">
@@ -53,10 +68,24 @@
 
         {{-- منو موبایل --}}
         <div x-show="open" x-cloak class="md:hidden pb-4 space-y-2">
+            {{-- جستجو (موبایل) --}}
+            <form action="{{ route('posts.index') }}" method="GET" class="relative mb-2">
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ request('q') }}"
+                    placeholder="جستجو در پست‌ها..."
+                    class="w-full bg-gray-100 text-gray-800 text-sm rounded-full pr-4 pl-9 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                <button type="submit" class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+            </form>
             <a href="{{ url('/') }}" class="block py-2 text-gray-600">خانه</a>
-            <a href="{{ route('posts.index') }}" class="hover:text-indigo-600 transition">همه پست‌ها</a>
+            <a href="{{ route('posts.index') }}" class="block py-2 text-gray-600">همه پست‌ها</a>
             @auth
-                <a href="{{ route('posts.my_posts') }}" class="hover:text-indigo-600 transition">پست‌های من</a>
+                <a href="{{ route('posts.my_posts') }}" class="block py-2 text-gray-600">پست‌های من</a>
+                <a href="{{ route('dashboard') }}" class="block py-2 text-gray-600">داشبورد</a>
                 <a href="{{ route('posts.create') }}" class="block py-2 text-indigo-600 font-medium">نوشتن پست</a>
                 <a href="{{ route('profile.edit') }}" class="block py-2 text-gray-600">پروفایل</a>
                 <form method="POST" action="{{ route('logout') }}">
