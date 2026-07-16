@@ -4,18 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::published()->orderBy('published_at', 'desc')->paginate(10);
-        return view('posts.index', compact('posts'));
+        $posts = Post::published()
+            ->with(['user', 'category'])
+            ->when($request->filled('q'), function ($query) use ($request) {
+                $query->search($request->input('q'));
+            })
+            ->orderBy('published_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('posts.index', [
+            'posts' => $posts,
+            'searchTerm' => $request->input('q'),
+        ]);
     }
 
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -24,6 +37,7 @@ class PostController extends Controller
             'title'        => 'required|string|max:255',
             'slug'         => 'required|string|unique:posts,slug',
             'content'      => 'required|string',
+            'category_id'  => 'nullable|exists:categories,id',
             'image'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'published_at' => 'nullable|date',
         ]);
@@ -36,6 +50,7 @@ class PostController extends Controller
             'title'        => $validated['title'],
             'slug'         => $validated['slug'],
             'content'      => $validated['content'],
+            'category_id'  => $validated['category_id'] ?? null,
             'image'        => $validated['image'] ?? null,
             'published_at' => $validated['published_at'] ?? null,
             'user_id'      => auth()->id(),
@@ -72,7 +87,9 @@ class PostController extends Controller
             abort(403, 'فقط نویسنده و ادمین میتوانند ویرایش کنند');
         }
 
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, Post $post)
@@ -87,6 +104,7 @@ class PostController extends Controller
             'title'        => 'required|string|max:255',
             'slug'         => 'required|string|unique:posts,slug,' . $post->id,
             'content'      => 'required|string',
+            'category_id'  => 'nullable|exists:categories,id',
             'image'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'published_at' => 'nullable|date',
         ]);
@@ -132,6 +150,7 @@ class PostController extends Controller
     public function myPosts()
     {
         $posts = Post::where('user_id', auth()->id())
+            ->with('category')
             ->orderBy('published_at', 'desc')
             ->paginate(10);
 

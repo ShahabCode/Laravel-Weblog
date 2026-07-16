@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
 
 use App\Models\Post;
 
@@ -51,5 +52,8 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('posts', PostController::class)
     ->only(['index', 'show']);
+
+Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])
+    ->name('categories.show');
 
 require __DIR__.'/auth.php';
