@@ -57,6 +57,27 @@
                                 {{ $post->published_at?->format('Y-m-d H:i') }}
                             </div>
 
+                                @if(!$post->is_published)
+                                    <div class="flex items-center gap-3 mb-3">
+        <span class="inline-block text-xs font-medium text-amber-700 bg-amber-50 px-3 py-1 rounded-full">
+            در انتظار تایید
+        </span>
+
+                                        @auth
+                                            @if(auth()->user()->is_admin)
+                                                <form action="{{ route('posts.approve', $post) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit"
+                                                            class="inline-flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full hover:bg-emerald-100 transition">
+                                                        <i class="fa-solid fa-check"></i>
+                                                        تایید و انتشار
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        @endauth
+                                    </div>
+                                @endif
+
                             <p class="text-gray-700">
                                 {{ Str::limit($post->content, 200) }}
                             </p>

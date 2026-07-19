@@ -10,8 +10,13 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::published()
-            ->with(['user', 'category'])
+        $query = Post::with(['user', 'category']);
+
+        if (!(auth()->check() && auth()->user()->is_admin)) {
+            $query->published();
+        }
+
+        $posts = $query
             ->when($request->filled('q'), function ($query) use ($request) {
                 $query->search($request->input('q'));
             })
@@ -129,6 +134,16 @@ class PostController extends Controller
         }
 
         return redirect()->route('posts.my_posts')->with('warning', 'پست ویرایش شد و نیاز به تایید ادمین دارد');
+    }
+
+    public function approve(Post $post)
+    {
+        abort_unless(auth()->user()?->is_admin, 403, 'فقط ادمین می‌تواند پست را تایید کند');
+
+        $post->is_published = true;
+        $post->save();
+
+        return back()->with('success', 'پست تایید و منتشر شد');
     }
 
     public function destroy(Post $post)

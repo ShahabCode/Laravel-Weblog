@@ -48,6 +48,9 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])
         ->name('posts.destroy');
+
+    Route::post('/posts/{post}/approve', [PostController::class, 'approve'])
+        ->name('posts.approve');
 });
 
 Route::resource('posts', PostController::class)
