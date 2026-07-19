@@ -1,58 +1,200 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 📝 Laravel Weblog
 
-## About Laravel
+A modern blog platform built with **Laravel 13** and **Tailwind CSS**, fully RTL and in Persian, using the Vazirmatn font.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+[![Laravel](https://img.shields.io/badge/Laravel-13.8-FF2D20?style=flat&logo=laravel&logoColor=white)](https://laravel.com)
+[![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?style=flat&logo=php&logoColor=white)](https://www.php.net)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Alpine.js](https://img.shields.io/badge/Alpine.js-3.x-8BC0D0?style=flat&logo=alpine.js&logoColor=black)](https://alpinejs.dev)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+</div>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 📋 Table of Contents
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [About](#-about)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Requirements](#-requirements)
+- [Installation](#-installation)
+- [Project Structure](#-project-structure)
+- [User Roles](#-user-roles)
+- [Routes](#-routes)
+- [Roadmap](#-roadmap)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## 📖 About
 
-## Agentic Development
+**Laravel Weblog** lets users write posts, organize them into categories, and publish through an admin-approval workflow. The UI is fully Persian, RTL, and responsive.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## ✨ Features
+
+| # | Feature | Description |
+|---|---------|--------------|
+| 📰 | **Post Management** | Create, edit, delete, and view posts with image upload |
+| 🗂️ | **Categories** | Organize and browse posts by topic |
+| 🔍 | **Search** | Quick search across post titles and content, from the header |
+| ✅ | **Admin Approval** | Posts by regular users require admin approval before publishing |
+| 👁️ | **View Counter** | Automatic view tracking per post |
+| 📄 | **Pagination** | Smart pagination on the home page, post list, and "my posts" |
+| 🔐 | **Authentication** | Registration, login, and profile management (Laravel Breeze) |
+| 📱 | **Responsive Design** | Consistent experience across desktop, tablet, and mobile |
+| 🎨 | **Persian RTL UI** | Vazirmatn font and full RTL layout across the site |
+| 🧭 | **Shared Header/Footer** | Consistent navigation, search, and quick links on every page |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Backend | Laravel 13.8 (PHP 8.3) |
+| Frontend | Blade, Tailwind CSS 3, Alpine.js |
+| Database | MySQL (MariaDB) |
+| Font | [Vazirmatn](https://github.com/rastikerdar/vazirmatn) |
+| Icons | Font Awesome 6 |
+| Auth | Laravel Breeze |
+| Build Tool | Vite |
+
+---
+
+## ⚙️ Requirements
+
+- PHP >= 8.2
+- Composer
+- Node.js >= 18 and npm
+- MySQL or MariaDB (e.g. via XAMPP)
+
+---
+
+## 🚀 Installation
 
 ```bash
-composer require laravel/boost --dev
+# 1) Clone the project
+git clone https://github.com/your-username/laravel-weblog.git
+cd laravel-weblog
 
-php artisan boost:install
+# 2) Install PHP dependencies
+composer install
+
+# 3) Install Node dependencies
+npm install
+
+# 4) Set up environment file
+cp .env.example .env
+php artisan key:generate
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Then edit `.env` with your database credentials:
 
-## Contributing
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laravel-weblog
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+# 5) Run migrations
+php artisan migrate
 
-## Code of Conduct
+# 6) Seed default categories
+php artisan db:seed --class=CategorySeeder
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 7) Create the storage symlink (for uploaded images)
+php artisan storage:link
 
-## Security Vulnerabilities
+# 8) Run the app (two separate terminals)
+php artisan serve
+npm run dev
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visit:
 
-## License
+```
+http://127.0.0.1:8000
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 👤 Creating an Admin User
+
+After registering a user through the site, grant admin access via Tinker:
+
+```bash
+php artisan tinker
+```
+
+```php
+$u = App\Models\User::find(1);
+$u->is_admin = true;
+$u->save();
+```
+
+---
+
+## 📁 Project Structure
+
+```
+laravel-weblog/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── PostController.php
+│   │   └── CategoryController.php
+│   └── Models/
+│       ├── Post.php
+│       ├── Category.php
+│       └── User.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+│       └── CategorySeeder.php
+├── resources/
+│   ├── css/app.css
+│   └── views/
+│       ├── components/
+│       │   ├── site-header.blade.php
+│       │   └── site-footer.blade.php
+│       ├── posts/
+│       ├── categories/
+│       ├── dashboard.blade.php
+│       └── welcome.blade.php
+└── routes/
+    └── web.php
+```
+
+---
+
+## 👥 User Roles
+
+| Role | Permissions |
+|------|-------------|
+| 👤 **Guest** | View published posts, search, browse categories |
+| ✍️ **Member** | Create, edit, and delete own posts (pending admin approval) |
+| 🛡️ **Admin** | Approve/publish pending posts, view all posts (published and pending) |
+
+---
+
+## 🧭 Routes
+
+| Method | Path | Description |
+|--------|------|--------------|
+| GET | `/` | Home page |
+| GET | `/posts` | List all posts + search |
+| GET | `/posts/{slug}` | View a single post |
+| GET | `/posts/create` | Create post form |
+| GET | `/posts/{post}/edit` | Edit post form |
+| POST | `/posts/{post}/approve` | Approve and publish a post *(admin only)* |
+| GET | `/categories/{slug}` | Posts in a category |
+| GET | `/dashboard` | User dashboard |
+
+---
+
+## ⭐ Support
+If you like this project, give it a **star** on GitHub! 🌟
