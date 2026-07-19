@@ -51,40 +51,42 @@
         </div>
     @else
 
-        {{-- ---------- پست ویژه ---------- --}}
-        <a href="{{ route('posts.show', $featured) }}" class="group block mb-16">
-            <div class="grid md:grid-cols-2 gap-8 items-center bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden">
-                <div class="h-64 md:h-96 overflow-hidden">
-                    <img src="{{ $featured->image ? asset('storage/'.$featured->image) : 'https://placehold.co/800x600?text=' . urlencode($featured->title) }}"
-                         alt="{{ $featured->title }}"
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                </div>
-                <div class="p-6 md:p-8">
+        {{-- ---------- پست ویژه (فقط در صفحه اول) ---------- --}}
+        @if(!request()->filled('page') || request('page') == 1)
+            <a href="{{ route('posts.show', $featured) }}" class="group block mb-16">
+                <div class="grid md:grid-cols-2 gap-8 items-center bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden">
+                    <div class="h-64 md:h-96 overflow-hidden">
+                        <img src="{{ $featured->image ? asset('storage/'.$featured->image) : 'https://placehold.co/800x600?text=' . urlencode($featured->title) }}"
+                             alt="{{ $featured->title }}"
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-6 md:p-8">
                         <span class="inline-block text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">
                             آخرین پست
                         </span>
-                    <h2 class="mt-4 text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-indigo-600 transition">
-                        {{ $featured->title }}
-                    </h2>
-                    <p class="mt-3 text-gray-500 leading-relaxed">
-                        {{ $featured->excerpt }}
-                    </p>
-                    <div class="mt-6 flex items-center gap-4 text-sm text-gray-400">
+                        <h2 class="mt-4 text-2xl md:text-3xl font-bold text-gray-900 group-hover:text-indigo-600 transition">
+                            {{ $featured->title }}
+                        </h2>
+                        <p class="mt-3 text-gray-500 leading-relaxed">
+                            {{ $featured->excerpt }}
+                        </p>
+                        <div class="mt-6 flex items-center gap-4 text-sm text-gray-400">
                             <span class="flex items-center gap-1">
                                 <i class="fa-regular fa-user"></i> {{ $featured->user->name }}
                             </span>
-                        <span class="flex items-center gap-1">
+                            <span class="flex items-center gap-1">
                                 <i class="fa-regular fa-calendar"></i> {{ $featured->published_at->format('Y/m/d') }}
                             </span>
-                        <span class="flex items-center gap-1">
+                            <span class="flex items-center gap-1">
                                 <i class="fa-regular fa-eye"></i> {{ $featured->views }}
                             </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        @endif
 
-        {{-- ---------- گرید مقالات ---------- --}}
+        {{-- ---------- پست‌های دیگر ---------- --}}
         @if($others->count())
             <div class="flex items-center justify-between mb-8">
                 <h3 class="text-xl font-bold text-gray-900">پست های دیگر</h3>
@@ -111,12 +113,15 @@
                             <div class="mt-4 pt-4 border-t flex items-center justify-between text-xs text-gray-400">
                                 <span>{{ $post->user->name }}</span>
                                 <span class="flex items-center gap-1">
-                                        <i class="fa-regular fa-eye"></i> {{ $post->views }}
-                                    </span>
+                                    <i class="fa-regular fa-eye"></i> {{ $post->views }}
+                                </span>
                             </div>
                         </div>
                     </a>
                 @endforeach
+            </div>
+            <div class="mt-10">
+                {{ $others->links() }}
             </div>
         @endif
     @endif

@@ -8,14 +8,14 @@ use App\Http\Controllers\CategoryController;
 use App\Models\Post;
 
 Route::get('/', function () {
-    $posts = Post::published()
-        ->with('user')
-        ->latest('published_at')
-        ->take(7)
-        ->get();
+    $featured = Post::published()->latest('published_at')->first();
 
-    $featured = $posts->first();
-    $others   = $posts->slice(1);
+    $others = Post::published()
+        ->with(['user', 'category'])
+        ->when($featured, fn ($query) => $query->where('id', '!=', $featured->id))
+        ->latest('published_at')
+        ->paginate(9)
+        ->withQueryString();
 
     return view('welcome', compact('featured', 'others'));
 });

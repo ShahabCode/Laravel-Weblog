@@ -21,7 +21,7 @@ class PostController extends Controller
                 $query->search($request->input('q'));
             })
             ->orderBy('published_at', 'desc')
-            ->paginate(10)
+            ->paginate(4)
             ->withQueryString();
 
         return view('posts.index', [
